@@ -4,12 +4,12 @@ const mongoose = require("mongoose")
 const User = mongoose.model("User")
 const bcrypt = require("bcryptjs")
 const jwt = require('jsonwebtoken')
-const {JWT_SECRET} = require('../keys')
+const { JWT_SECRET} = require('../keys')
 const requireLogin = require("../middleware/requireLogin")
 
-router.get('/protected', requireLogin, (req, res) => {
-    res.send('hello userr')
-})
+// router.get('/protected', requireLogin, (req, res) => {
+//     res.send('hello userr')
+// })
 
 router.post('/signup', (req, res) => {
     const { name, email, password } = req.body
@@ -18,11 +18,13 @@ router.post('/signup', (req, res) => {
     }
     User.findOne({ email: email })
         .then((savedUser) => {
+            console.log(savedUser, "saveduser")
             if (savedUser) {
                 return res.status(422).json({ error: "user already exist" })
             }
             bcrypt.hash(password, 12)
                 .then(hashedpassword => {
+                    console.log(hashedpassword, "hashedpassword")
                     const user = new User({
                         email,
                         password: hashedpassword,
@@ -45,6 +47,8 @@ router.post('/signup', (req, res) => {
 
 router.post('/signin', (req, res) => {
     const {email, password} = req.body
+    // const email = req.body.email
+    // const password = req.body.password
     if (!email || !password) {
         return res.status(422).json({error: "please provide email and password"})
     }

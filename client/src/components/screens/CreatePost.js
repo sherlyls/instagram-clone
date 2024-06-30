@@ -4,7 +4,7 @@ const CreatePost = () => {
     return (
         <div className='card input-field'
             style={{
-                margin: "10px",
+                margin: "30px auto",
                 maxWidth: "500px",
                 padding: "20px",
                 textAlign: "center"
@@ -13,7 +13,7 @@ const CreatePost = () => {
             <input type='text' placeholder='title' />
             <input type='text' placeholder='body' />
             <div className="file-field input-field">
-                <div className="btn blue darken-1">
+                <div className="btn #64b5f6 blue darken-1">
                     <span>Upload Image</span>
                     <input type="file" />
                 </div>
